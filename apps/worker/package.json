@@ -1,0 +1,25 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "echo 'linting...'",
+    "typecheck": "tsc -noEmit"
+  },
+  "dependencies": {
+    "@forgeiq/identity": "*",
+    "@forgeiq/schemas": "*",
+    "@forgeiq/ai": "*",
+    "@forgeiq/rules": "*",
+    "@forgeiq/scraper": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^1.6.0"
+  }
+}

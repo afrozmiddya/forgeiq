@@ -1,0 +1,19 @@
+{
+  "name": "@forgeiq/reference-data",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "echo 'linting...'",
+    "test": "echo 'testing...'",
+    "typecheck": "tsc -b",
+    "build": "echo 'building...'"
+  },
+  "dependencies": {
+    "@forgeiq/schemas": "*",
+    "csv-parse": "^5.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.5.0"
+  }
+}

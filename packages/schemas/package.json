@@ -1,0 +1,20 @@
+{
+  "name": "@forgeiq/schemas",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "echo 'linting...'",
+    "test": "echo 'testing...'",
+    "typecheck": "echo 'typechecking...'",
+    "build": "echo 'building...'",
+    "seed:demo": "npx tsx src/seed.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.2",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.21.0",
+    "drizzle-kit": "^0.31.10"
+  }
+}

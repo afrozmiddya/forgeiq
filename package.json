@@ -1,0 +1,25 @@
+{
+  "name": "forgeiq",
+  "version": "1.0.0",
+  "description": "ForgeIQ Hackathon Project",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"api,web,worker\" -c \"blue,green,magenta\" \"npm run dev -w @forgeiq/api\" \"npm run dev -w web\" \"npm run dev -w worker\"",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
+    "dotenv": "^17.4.2"
+  }
+}

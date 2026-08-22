@@ -1,0 +1,15 @@
+{
+  "name": "@forgeiq/shared",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "echo 'linting...'",
+    "test": "echo 'testing...'",
+    "typecheck": "echo 'typechecking...'",
+    "build": "echo 'building...'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.3",
+    "dotenv": "^17.4.2"
+  }
+}
