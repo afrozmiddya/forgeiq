@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Check, X, AlertTriangle, ArrowRight, ShieldCheck, Activity, Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Check, X, AlertTriangle, ShieldCheck, Activity, Search } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import { EmptyState } from '../../components/EmptyState';
 
@@ -130,7 +129,7 @@ export const ReviewPage: React.FC = () => {
           <div>
             <h4 className="text-yellow-500 font-medium text-sm uppercase tracking-wider">Validation Rule Violation</h4>
             <ul className="mt-2 space-y-1">
-              {currentRecord.errors.map((err, i) => (
+              {currentRecord.errors.map((err: any, i: number) => (
                 <li key={i} className="text-sm text-yellow-500/80">{err.message}</li>
               ))}
             </ul>
@@ -168,7 +167,7 @@ export const ReviewPage: React.FC = () => {
           <div className="p-6 overflow-auto">
             <div className="space-y-4">
               {Object.entries(currentRecord.extracted).map(([key, value]) => {
-                const hasError = currentRecord.errors.some(e => e.field === key);
+                const hasError = currentRecord.errors.some((e: any) => e.field === key);
                 return (
                   <div key={key} className={`p-4 border transition ${hasError ? 'bg-yellow-500/5 border-yellow-500/30' : 'bg-[#0A0A0A] border-neutral-800 hover:border-neutral-700'}`}>
                     <div className="flex justify-between items-center mb-2">

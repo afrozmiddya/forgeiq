@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, CheckCircle, ShieldCheck, AlertTriangle, Activity } from 'lucide-react';
 

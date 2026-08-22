@@ -113,7 +113,7 @@ export const AnalyticsDashboard: React.FC = () => {
                 paddingAngle={5}
                 dataKey="value"
               >
-                {mockValidationData.map((entry, index) => (
+                {mockValidationData.map((_, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>

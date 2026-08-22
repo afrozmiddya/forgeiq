@@ -1,5 +1,5 @@
-import { FC, useState, useEffect } from 'react';
-import { Box, ShieldCheck, AlertTriangle, CheckCircle, ExternalLink, Activity, ChevronRight, Info } from 'lucide-react';
+import { type FC, useState, useEffect } from 'react';
+import { Box, ShieldCheck, AlertTriangle, CheckCircle, ExternalLink, Activity, ChevronRight } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 export const ProductDetailPage: FC = () => {

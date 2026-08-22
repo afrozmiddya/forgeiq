@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import axios from 'axios';
-import { Database, FileText, CheckCircle, Clock } from 'lucide-react';
+import { Database, CheckCircle, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { EmptyState } from '../../components/EmptyState';
 import { LoadingSpinner } from '../../components/LoadingSpinner';

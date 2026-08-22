@@ -4,22 +4,22 @@ import { Search, Download, Filter } from 'lucide-react';
 
 export const SchemaPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filterRequired, setFilterRequired] = useState<string>('all');
+  const [filterSource, setFilterSource] = useState<string>('all');
 
   const filteredSchema = DELIVERY_SCHEMA.filter(field => {
     const matchesSearch = field.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          (field.description && field.description.toLowerCase().includes(searchTerm.toLowerCase()));
+                          field.source.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (field.transformer && field.transformer.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                          (field.validator && field.validator.toLowerCase().includes(searchTerm.toLowerCase()));
     
-    if (filterRequired === 'all') return matchesSearch;
-    if (filterRequired === 'required') return matchesSearch && field.required;
-    if (filterRequired === 'optional') return matchesSearch && !field.required;
-    return matchesSearch;
+    if (filterSource === 'all') return matchesSearch;
+    return matchesSearch && field.source === filterSource;
   });
 
   const handleDownload = () => {
     const csvContent = "data:text/csv;charset=utf-8," 
-      + "Field Name,Type,Required,Description\n"
-      + DELIVERY_SCHEMA.map(f => `${f.name},${f.type},${f.required ? 'YES' : 'NO'},"${f.description || ''}"`).join("\n");
+      + "Position,Field Name,Source,Transformer,Validator\n"
+      + DELIVERY_SCHEMA.map(f => `${f.position},${f.name},${f.source},${f.transformer || ''},${f.validator || ''}`).join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
@@ -70,13 +70,15 @@ export const SchemaPage: React.FC = () => {
           <div className="flex items-center gap-2 w-full md:w-auto">
             <Filter className="w-4 h-4 text-slate-400" />
             <select
-              value={filterRequired}
-              onChange={(e) => setFilterRequired(e.target.value)}
+              value={filterSource}
+              onChange={(e) => setFilterSource(e.target.value)}
               className="bg-slate-950 border border-slate-700 rounded-lg py-2 pl-3 pr-8 text-sm text-slate-200 focus:outline-none focus:border-blue-500 transition appearance-none"
             >
-              <option value="all">All Fields</option>
-              <option value="required">Required Only</option>
-              <option value="optional">Optional Only</option>
+              <option value="all">All Sources</option>
+              <option value="AI">AI</option>
+              <option value="RAW">RAW</option>
+              <option value="SYSTEM">SYSTEM</option>
+              <option value="REFERENCE">REFERENCE</option>
             </select>
           </div>
         </div>
@@ -87,9 +89,10 @@ export const SchemaPage: React.FC = () => {
             <thead className="bg-slate-800/80 text-slate-400 uppercase text-xs border-b border-slate-800 sticky top-0 z-10 backdrop-blur">
               <tr>
                 <th className="px-6 py-4 font-medium">Field Name</th>
-                <th className="px-6 py-4 font-medium">Type</th>
-                <th className="px-6 py-4 font-medium">Required</th>
-                <th className="px-6 py-4 font-medium w-1/2">Description</th>
+                <th className="px-6 py-4 font-medium">Position</th>
+                <th className="px-6 py-4 font-medium">Source</th>
+                <th className="px-6 py-4 font-medium">Transformer</th>
+                <th className="px-6 py-4 font-medium">Validator</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
@@ -103,19 +106,14 @@ export const SchemaPage: React.FC = () => {
                 filteredSchema.map((field, index) => (
                   <tr key={index} className="hover:bg-slate-800/20 transition-colors">
                     <td className="px-6 py-4 font-mono text-blue-400">{field.name}</td>
+                    <td className="px-6 py-4 font-mono text-xs">{field.position}</td>
                     <td className="px-6 py-4">
                       <span className="bg-slate-800 px-2 py-1 rounded text-xs text-slate-300 border border-slate-700">
-                        {field.type}
+                        {field.source}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
-                      {field.required ? (
-                        <span className="text-amber-400 text-xs font-medium bg-amber-400/10 px-2 py-1 rounded border border-amber-400/20">YES</span>
-                      ) : (
-                        <span className="text-slate-500 text-xs">NO</span>
-                      )}
-                    </td>
-                    <td className="px-6 py-4 text-slate-400">{field.description || '-'}</td>
+                    <td className="px-6 py-4 text-slate-400 font-mono text-xs">{field.transformer || '-'}</td>
+                    <td className="px-6 py-4 text-slate-400 font-mono text-xs">{field.validator || '-'}</td>
                   </tr>
                 ))
               )}
