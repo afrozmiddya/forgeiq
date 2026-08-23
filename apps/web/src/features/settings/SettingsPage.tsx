@@ -113,7 +113,8 @@ export const SettingsPage: React.FC = () => {
               <button 
                 onClick={async () => {
                   try {
-                    await fetch(import.meta.env.VITE_API_URL + '/api/demo/seed', { method: 'POST' });
+                    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+                    await fetch(apiUrl + '/api/demo/seed', { method: 'POST' });
                     alert('Demo data seeded successfully. Refreshing...');
                     window.location.reload();
                   } catch (e) { alert('Error seeding demo data'); }
@@ -125,7 +126,8 @@ export const SettingsPage: React.FC = () => {
               <button 
                 onClick={async () => {
                   try {
-                    await fetch(import.meta.env.VITE_API_URL + '/api/demo/reset', { method: 'POST' });
+                    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+                    await fetch(apiUrl + '/api/demo/reset', { method: 'POST' });
                     alert('Demo data reset successfully. Refreshing...');
                     window.location.reload();
                   } catch (e) { alert('Error resetting demo data'); }
