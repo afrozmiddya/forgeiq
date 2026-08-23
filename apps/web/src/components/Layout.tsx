@@ -69,8 +69,8 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
               U
             </div>
             <div>
-              <p className="font-medium text-neutral-200 leading-none">Admin</p>
-              <p className="text-xs mt-1">Enterprise Org</p>
+              <p className="font-medium text-neutral-200 leading-none">TechyHigh</p>
+              <p className="text-xs mt-1 text-blue-400 font-bold">UniHack Demo Workspace</p>
             </div>
           </div>
         </div>

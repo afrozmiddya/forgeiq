@@ -35,7 +35,8 @@ export const UploadPage: FC = () => {
     formData.append('taxonomy', taxonomy);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/datasets/upload', formData, {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+      const response = await axios.post(`${apiUrl}/api/datasets/upload`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       if (response.data.success) {

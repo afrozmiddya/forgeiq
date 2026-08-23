@@ -9,13 +9,14 @@ import { LoadingSpinner } from '../../components/LoadingSpinner';
 const DatasetRow: FC<{ dataset: any }> = ({ dataset }) => {
   const [status, setStatus] = useState(dataset.status);
   const [progress, setProgress] = useState<any>(null);
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
   useEffect(() => {
     if (status === 'COMPLETED') return;
 
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/api/datasets/${dataset.id}/status`);
+        const res = await axios.get(`${apiUrl}/api/datasets/${dataset.id}/status`);
         if (res.data.success && res.data.progress) {
           setProgress(res.data.progress);
           setStatus(res.data.progress.status);
@@ -64,7 +65,7 @@ const DatasetRow: FC<{ dataset: any }> = ({ dataset }) => {
           </span>
           {status === 'COMPLETED' && (
             <a 
-              href={`http://localhost:4000/api/datasets/${dataset.id}/export`}
+              href={`${apiUrl}/api/datasets/${dataset.id}/export`}
               download
               className="px-4 py-1.5 rounded-lg bg-green-600/10 hover:bg-green-600/20 text-green-400 border border-green-600/20 text-xs font-bold uppercase transition"
             >
@@ -158,7 +159,8 @@ const DatasetOverview: FC = () => {
   useEffect(() => {
     const fetchDatasets = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/datasets');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+        const response = await axios.get(`${apiUrl}/api/datasets`);
         if (response.data.success) {
           setDatasets(response.data.datasets);
         }

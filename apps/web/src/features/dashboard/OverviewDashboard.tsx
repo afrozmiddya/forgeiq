@@ -33,7 +33,8 @@ export const OverviewDashboard: FC = () => {
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/metrics');
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+        const response = await axios.get(`${apiUrl}/api/metrics`);
         if (response.data.success) {
           setMetrics(response.data.metrics);
         }

@@ -5,13 +5,37 @@ import datasetRoutes from './routes/dataset';
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://forgeiqq.netlify.app'
+  ]
+}));
 app.use(express.json());
 
 // Routes
 app.use('/api/datasets', datasetRoutes);
 
 import { supabase } from '@forgeiq/shared';
+import { seedDemoData, resetDemoData } from './scripts/seed-demo';
+
+app.post('/api/demo/seed', async (req, res) => {
+  try {
+    await seedDemoData();
+    res.json({ success: true, message: 'Demo data seeded' });
+  } catch (err: any) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+app.post('/api/demo/reset', async (req, res) => {
+  try {
+    await resetDemoData();
+    res.json({ success: true, message: 'Demo data reset' });
+  } catch (err: any) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
 
 app.get('/api/metrics', async (req, res) => {
   try {
